@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRIFLARE // Live Now</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Icon Toolkit -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* 50% White, 30% Black, and Sleek Greyscale Accents (No Red) */
+            --color-bg: #ffffff;        /* 50% Canvas Background */
+            --color-surface: #0b0b0e;   /* 30% Bold Structural Contrast */
+            --color-accent: #000000;    /* 20% Dynamic Monochrome Highlight */
+            
+            --color-text-dark: #0b0b0e;
+            --color-text-light: #ffffff;
+            --color-muted: #7e7e86;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-dark);
+            font-family: var(--font-body);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* Subtle Technical Grid Background */
+        .background-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(11, 11, 14, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(11, 11, 14, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #spark-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        /* Header Layout (Black Accent - 30% Base) */
+        header {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -1.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--color-text-dark);
+            text-decoration: none;
+        }
+
+        .logo-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--color-surface);
+            border-radius: 50%;
+            animation: pulse-dark 2s infinite;
+        }
+
+        .domain-status {
+            background: var(--color-surface);
+            color: var(--color-text-light);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid var(--color-surface);
+        }
+
+        .domain-status span {
+            width: 8px;
+            height: 8px;
+            background: var(--color-bg);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-dark 1s infinite alternate;
+        }
+
+        /* Dynamic Monochrome Animations */
+        @keyframes pulse-dark {
+            0% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 0 0 rgba(11, 11, 14, 0.4); }
+            70% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 8px rgba(11, 11, 14, 0); }
+            100% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 0 0 rgba(11, 11, 14, 0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(4deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes ripple {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            100% { transform: scale(1.35); opacity: 0; }
+        }
+
+        /* Hero Container Area (White Canvas - 50% Balance) */
+        main {
+            position: relative;
+            z-index: 10;
+            max-width: 680px;
+            width: 100%;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Highly Optimized Kinetic Emoji Base */
+        .emoji-viewport {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+
+        .emoji-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px dashed var(--color-surface);
+            border-radius: 50%;
+            animation: orbit 20s linear infinite;
+        }
+
+        .emoji-ring::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            background: var(--color-surface);
+            border-radius: 50%;
+        }
+
+        .emoji-ripple {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid var(--color-surface);
+            border-radius: 50%;
+            animation: ripple 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+            pointer-events: none;
+        }
+
+        .emoji-box {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 110px;
+            height: 110px;
+            background: var(--color-surface);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            box-shadow: 0 10px 30px rgba(11, 11, 14, 0.15);
+            animation: float 4s ease-in-out infinite;
+            transition: var(--transition);
+            border: 3px solid var(--color-surface);
+        }
+
+        .emoji-box:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 15px 40px rgba(11, 11, 14, 0.25);
+        }
+
+        /* Title Typography */
+        h1 {
+            font-family: var(--font-display);
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: var(--color-text-dark);
+        }
+
+        h1 span {
+            color: var(--color-muted);
+            display: block;
+        }
+
+        p.welcome-p {
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--color-muted);
+            max-width: 500px;
+            margin: 0 auto 35px auto;
+            line-height: 1.5;
+        }
+
+        /* Custom Modern Pill-Shaped Action Button */
+        .btn-launch {
+            background: var(--color-bg); /* White background */
+            color: var(--color-surface); /* Black text */
+            border: 2px solid var(--color-surface); /* Black border */
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 16px 40px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            border-radius: 50px; /* Well rounded */
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(11, 11, 14, 0.05);
+            animation: button-breathe 2.5s infinite;
+        }
+
+        /* Hidden sliding background overlay for the cool animation */
+        .btn-launch::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-surface);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-launch:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn-launch:hover {
+            color: var(--color-bg); /* Inverted white text on hover */
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 24px rgba(11, 11, 14, 0.15);
+        }
+
+        .btn-launch:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* Continuous breathing micro-pulse animation */
+        @keyframes button-breathe {
+            0% { box-shadow: 0 0 0 0 rgba(11, 11, 14, 0.1), 0 4px 15px rgba(11, 11, 14, 0.05); }
+            70% { box-shadow: 0 0 0 10px rgba(11, 11, 14, 0), 0 4px 15px rgba(11, 11, 14, 0.05); }
+            100% { box-shadow: 0 0 0 0 rgba(11, 11, 14, 0), 0 4px 15px rgba(11, 11, 14, 0.05); }
+        }
+
+        /* Subtle Telemetry Counter Overlay */
+        .telemetry-deck {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(11, 11, 14, 0.1);
+            padding-top: 25px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .telemetry-item {
+            text-align: left;
+        }
+
+        .telemetry-val {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        .telemetry-lbl {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--color-muted);
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer Deck */
+        footer {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(11, 11, 14, 0.05);
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+        }
+
+        footer .founder-credit {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        footer .founder-credit span {
+            border-bottom: 2px solid var(--color-surface);
+            padding-bottom: 1px;
+        }
+
+        /* Touch target improvements for mobile */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+            p.welcome-p {
+                font-size: 1rem;
+            }
+            header, footer {
+                padding: 20px;
+            }
+            .telemetry-deck {
+                gap: 15px;
+            }
+            .telemetry-val {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Subtle Grid matrix design wrapper -->
+    <div class="background-grid"></div>
+
+    <!-- Interactive Canvas Particle Field -->
+    <canvas id="spark-canvas"></canvas>
+
+    <!-- Header Block -->
+    <header>
+        <a href="#" class="logo">
+            <div class="logo-dot"></div>
+            DRIFLARE
+        </a>
+        <div class="domain-status">
+            <span></span> Live Now
+        </div>
+    </header>
+
+    <!-- Core Center Main Box -->
+    <main>
+        <!-- Interactive Floating Kinetic Emoji Sphere -->
+        <div class="emoji-viewport" onclick="triggerCinematicFlare(event)" title="Tap to ignite kinetic flares!">
+            <div class="emoji-ripple"></div>
+            <div class="emoji-ring"></div>
+            <div class="emoji-box" id="kinetic-emoji">
+                ⚡
+            </div>
+        </div>
+
+        <h1>Driflare.com<span>Is Now Live</span></h1>
+        <p class="welcome-p">Welcome to the future of friction-free kinetic dynamics. The launch protocol has successfully finished, mapping direct routes to the next-generation solar drift arena.</p>
+
+        <!-- Dynamic Trigger Button (White with Black, Well rounded, hover animation) -->
+        <button class="btn-launch" onclick="triggerCinematicFlare(event)">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Ignite Celebration
+        </button>
+
+        <!-- Telemetry Details -->
+        <div class="telemetry-deck">
+            <div class="telemetry-item">
+                <div class="telemetry-val" id="telemetry-time">0.00s</div>
+                <div class="telemetry-lbl">Uptime Score</div>
+            </div>
+            <div class="telemetry-item">
+                <div class="telemetry-val">ACTIVE</div>
+                <div class="telemetry-lbl">Domain Node</div>
+            </div>
+            <div class="telemetry-item">
+                <div class="telemetry-val" id="telemetry-flares">000</div>
+                <div class="telemetry-lbl">Flares Created</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Block -->
+    <footer>
+        <p>© 2026 DRIFLARE. All rights reserved.</p>
+        <div class="founder-credit">Designed & Led by <span>Nathan</span></div>
+    </footer>
+
+    <script>
+        // High Contrast Interactive Spark Matrix Engine
+        const canvas = document.getElementById('spark-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let sparks = [];
+        let flareCount = 0;
+        const emojiList = ["⚡", "☄️", "🚀", "🛸", "🌟", "🏁"];
+        let emojiIndex = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Spark Object Constructor
+        class Spark {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                // High velocity explosion formula
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 8 + 4;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.size = Math.random() * 4 + 2;
+                
+                // Pure monochrome premium color matrix (No Red)
+                const randColor = Math.random();
+                if (randColor > 0.6) {
+                    this.color = "#0b0b0e"; // Deep Graphite
+                } else if (randColor > 0.3) {
+                    this.color = "#8e8e93"; // Neutral Grey
+                } else {
+                    this.color = "#c7c7cc"; // Platinum Gray
+                }
+
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.1; // Subtle gravity
+                this.alpha -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                // Minimalist diamond/spark shape
+                ctx.moveTo(this.x, this.y - this.size);
+                ctx.lineTo(this.x + this.size, this.y);
+                ctx.lineTo(this.x, this.y + this.size);
+                ctx.lineTo(this.x - this.size, this.y);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Tap/Click Listener triggers cinematic celebration flares
+        function triggerCinematicFlare(event) {
+            // Pick mouse coordinates or centerpiece coordinates
+            const originX = event ? event.clientX : window.innerWidth / 2;
+            const originY = event ? event.clientY : window.innerHeight / 2 - 50;
+
+            // Generate cinematic sparks (Graphite & Slate gray)
+            for (let i = 0; i < 45; i++) {
+                sparks.push(new Spark(originX, originY));
+            }
+
+            // Cycle Centerpiece Emoji dynamically
+            const emojiEl = document.getElementById('kinetic-emoji');
+            emojiIndex = (emojiIndex + 1) % emojiList.length;
+            emojiEl.innerText = emojiList[emojiIndex];
+
+            // Hover Scale Impact Visual
+            emojiEl.style.transform = "scale(1.25) rotate(-12deg)";
+            setTimeout(() => {
+                emojiEl.style.transform = "";
+            }, 300);
+
+            // Update custom telemetry
+            flareCount += 45;
+            document.getElementById('telemetry-flares').innerText = String(flareCount).padStart(3, '0');
+        }
+
+        // Track Pointer Interaction to dynamically seed subtle embers
+        window.addEventListener('pointermove', (e) => {
+            if (Math.random() > 0.88) {
+                sparks.push(new Spark(e.clientX, e.clientY));
+            }
+        });
+
+        // Trigger welcome burst immediately on load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                triggerCinematicFlare();
+            }, 500);
+        });
+
+        // Dynamic Telemetry Simulator Clock
+        const startTime = Date.now();
+        function updateTelemetryClock() {
+            const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+            document.getElementById('telemetry-time').innerText = elapsed + "s";
+            requestAnimationFrame(updateTelemetryClock);
+        }
+        updateTelemetryClock();
+
+        // Main Rendering Loop
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Render Sparks
+            for (let i = sparks.length - 1; i >= 0; i--) {
+                const s = sparks[i];
+                s.update();
+                if (s.alpha <= 0) {
+                    sparks.splice(i, 1);
+                } else {
+                    s.draw();
+                }
+            }
+
+            requestAnimationFrame(render);
+        }
+        render();
+    </script>
+</body>
+</html>
