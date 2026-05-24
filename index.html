@@ -26,6 +26,15 @@
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        body.dark-theme {
+            --color-bg: #0b0b0e;        /* Dark background canvas */
+            --color-surface: #ffffff;   /* Pure white contrast structures */
+            --color-accent: #ffffff;    
+            --color-text-dark: #ffffff; /* Inverse text for readability */
+            --color-text-light: #0b0b0e;
+            --color-muted: #a1a1aa;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -37,13 +46,15 @@
             background-color: var(--color-bg);
             color: var(--color-text-dark);
             font-family: var(--font-body);
-            overflow: hidden;
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         /* Subtle Technical Grid Background */
@@ -59,6 +70,13 @@
             background-size: 40px 40px;
             z-index: 1;
             pointer-events: none;
+            transition: var(--transition);
+        }
+
+        body.dark-theme .background-grid {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
 
         #spark-canvas {
@@ -70,7 +88,6 @@
             z-index: 2;
         }
 
-        /* Header Layout (Black Accent - 30% Base) */
         header {
             position: relative;
             z-index: 10;
@@ -91,6 +108,7 @@
             gap: 10px;
             color: var(--color-text-dark);
             text-decoration: none;
+            transition: color 0.4s ease;
         }
 
         .logo-dot {
@@ -99,6 +117,14 @@
             background: var(--color-surface);
             border-radius: 50%;
             animation: pulse-dark 2s infinite;
+            transition: background 0.4s ease;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 15;
         }
 
         .domain-status {
@@ -115,6 +141,7 @@
             align-items: center;
             gap: 8px;
             border: 2px solid var(--color-surface);
+            transition: var(--transition);
         }
 
         .domain-status span {
@@ -124,6 +151,28 @@
             border-radius: 50%;
             display: inline-block;
             animation: pulse-dark 1s infinite alternate;
+            transition: var(--transition);
+        }
+
+        .theme-toggle {
+            background: var(--color-surface);
+            color: var(--color-text-light);
+            border: 2px solid var(--color-surface);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--color-bg);
+            color: var(--color-text-dark);
         }
 
         /* Dynamic Monochrome Animations */
@@ -182,6 +231,7 @@
             border: 2px dashed var(--color-surface);
             border-radius: 50%;
             animation: orbit 20s linear infinite;
+            transition: border-color 0.4s ease;
         }
 
         .emoji-ring::before {
@@ -193,6 +243,7 @@
             height: 12px;
             background: var(--color-surface);
             border-radius: 50%;
+            transition: background 0.4s ease;
         }
 
         .emoji-ripple {
@@ -205,6 +256,7 @@
             border-radius: 50%;
             animation: ripple 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
             pointer-events: none;
+            transition: border-color 0.4s ease;
         }
 
         .emoji-box {
@@ -240,11 +292,13 @@
             text-transform: uppercase;
             margin-bottom: 15px;
             color: var(--color-text-dark);
+            transition: color 0.4s ease;
         }
 
         h1 span {
             color: var(--color-muted);
             display: block;
+            transition: color 0.4s ease;
         }
 
         p.welcome-p {
@@ -254,9 +308,9 @@
             max-width: 500px;
             margin: 0 auto 35px auto;
             line-height: 1.5;
+            transition: color 0.4s ease;
         }
 
-        /* Custom Modern Pill-Shaped Action Button */
         .btn-launch {
             background: var(--color-bg); /* White background */
             color: var(--color-surface); /* Black text */
@@ -317,37 +371,118 @@
             100% { box-shadow: 0 0 0 0 rgba(11, 11, 14, 0), 0 4px 15px rgba(11, 11, 14, 0.05); }
         }
 
-        /* Subtle Telemetry Counter Overlay */
-        .telemetry-deck {
-            display: flex;
-            gap: 30px;
-            margin-top: 40px;
-            border-top: 1px solid rgba(11, 11, 14, 0.1);
-            padding-top: 25px;
+        .social-container {
+            margin-top: 45px;
             width: 100%;
-            justify-content: center;
+            max-width: 600px;
+            z-index: 10;
         }
 
-        .telemetry-item {
-            text-align: left;
-        }
-
-        .telemetry-val {
+        .social-title {
             font-family: var(--font-display);
-            font-size: 1.2rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            color: var(--color-text-dark);
-        }
-
-        .telemetry-lbl {
-            font-size: 0.75rem;
             text-transform: uppercase;
-            font-weight: 600;
+            letter-spacing: 2px;
             color: var(--color-muted);
-            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
 
-        /* Footer Deck */
+        .social-title::before, .social-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(11, 11, 14, 0.1);
+        }
+
+        body.dark-theme .social-title::before, body.dark-theme .social-title::after {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+            gap: 12px;
+            width: 100%;
+        }
+
+        .social-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 10px;
+            background: transparent;
+            border: 1px solid rgba(11, 11, 14, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--color-text-dark);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        body.dark-theme .social-card {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-card .svg-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--color-text-dark);
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .social-card span {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-surface);
+            z-index: -1;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: var(--transition);
+            border-radius: 11px;
+        }
+
+        .social-card:hover {
+            color: var(--color-bg);
+            transform: translateY(-4px);
+            border-color: var(--color-surface);
+            box-shadow: 0 8px 20px rgba(11, 11, 14, 0.1);
+        }
+
+        body.dark-theme .social-card:hover {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05);
+        }
+
+        .social-card:hover::before {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .social-card:hover .svg-icon {
+            fill: var(--color-bg);
+            transform: scale(1.15) rotate(5deg);
+        }
+
         footer {
             position: relative;
             z-index: 10;
@@ -357,11 +492,17 @@
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid rgba(11, 11, 14, 0.05);
+            transition: border-color 0.4s ease;
+        }
+
+        body.dark-theme footer {
+            border-top-color: rgba(255, 255, 255, 0.05);
         }
 
         footer p {
             font-size: 0.85rem;
             color: var(--color-muted);
+            transition: color 0.4s ease;
         }
 
         footer .founder-credit {
@@ -370,29 +511,140 @@
             text-transform: uppercase;
             font-weight: 700;
             color: var(--color-text-dark);
+            transition: color 0.4s ease;
         }
 
-        footer .founder-credit span {
+        footer .founder-credit .gemini-highlight {
+            color: var(--color-muted);
+        }
+
+        /* Interactive Founder Wrapper with Tooltip */
+        .founder-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .founder-trigger {
             border-bottom: 2px solid var(--color-surface);
             padding-bottom: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--color-text-dark);
         }
 
-        /* Touch target improvements for mobile */
-        @media (max-width: 600px) {
+        .founder-trigger:hover {
+            opacity: 0.7;
+        }
+
+        /* Hover Tooltip Menu holding original social logos */
+        .founder-tooltip {
+            position: absolute;
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--color-surface);
+            border: 1px solid rgba(11, 11, 14, 0.15);
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        body.dark-theme .founder-tooltip {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        /* Tooltip Pointer Triangle */
+        .founder-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: var(--color-surface) transparent transparent transparent;
+        }
+
+        /* Triggers popup visibility and overrides pointer events gracefully */
+        .founder-wrapper:hover .founder-tooltip,
+        .founder-tooltip:hover {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Tooltip original logo link styling */
+        .founder-tooltip a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .founder-tooltip .tooltip-icon {
+            width: 20px;
+            height: 20px;
+            fill: var(--color-text-light); /* Opposite of body text for readability inside block */
+            transition: var(--transition);
+        }
+
+        .founder-tooltip a:hover .tooltip-icon {
+            transform: scale(1.2) translateY(-2px);
+            fill: var(--color-muted);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                justify-content: flex-start;
+            }
+            main {
+                padding: 40px 20px;
+                margin: auto 0;
+            }
             h1 {
-                font-size: 2.3rem;
+                font-size: 2.2rem;
             }
             p.welcome-p {
-                font-size: 1rem;
+                font-size: 0.95rem;
+                margin-bottom: 25px;
             }
-            header, footer {
+            .emoji-viewport {
+                width: 110px;
+                height: 110px;
+                margin-bottom: 20px;
+            }
+            .emoji-box {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+                top: 15px;
+                left: 15px;
+            }
+            .btn-launch {
+                padding: 12px 30px;
+                font-size: 0.85rem;
+            }
+            header {
+                padding: 15px 20px;
+            }
+            footer {
                 padding: 20px;
-            }
-            .telemetry-deck {
+                flex-direction: column;
                 gap: 15px;
+                text-align: center;
             }
-            .telemetry-val {
-                font-size: 1rem;
+            .founder-tooltip {
+                bottom: 150%;
             }
         }
     </style>
@@ -411,14 +663,18 @@
             <div class="logo-dot"></div>
             DRIFLARE
         </a>
-        <div class="domain-status">
-            <span></span> Live Now
+        <div class="header-actions">
+            <div class="domain-status">
+                <span></span> Live Now
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light and dark mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
         </div>
     </header>
 
     <!-- Core Center Main Box -->
     <main>
-        <!-- Interactive Floating Kinetic Emoji Sphere -->
         <div class="emoji-viewport" onclick="triggerCinematicFlare(event)" title="Tap to ignite kinetic flares!">
             <div class="emoji-ripple"></div>
             <div class="emoji-ring"></div>
@@ -435,27 +691,89 @@
             <i class="fa-solid fa-wand-magic-sparkles"></i> Ignite Celebration
         </button>
 
-        <!-- Telemetry Details -->
-        <div class="telemetry-deck">
-            <div class="telemetry-item">
-                <div class="telemetry-val" id="telemetry-time">0.00s</div>
-                <div class="telemetry-lbl">Uptime Score</div>
-            </div>
-            <div class="telemetry-item">
-                <div class="telemetry-val">ACTIVE</div>
-                <div class="telemetry-lbl">Domain Node</div>
-            </div>
-            <div class="telemetry-item">
-                <div class="telemetry-val" id="telemetry-flares">000</div>
-                <div class="telemetry-lbl">Flares Created</div>
+        <div class="social-container">
+            <div class="social-title">Join The Network</div>
+            <div class="social-grid">
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/company/driflare" target="_blank" rel="noopener" class="social-card" title="Join our network on LinkedIn">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    <span>LinkedIn</span>
+                </a>
+                <!-- X (Twitter) -->
+                <a href="http://x.com/driflare" target="_blank" rel="noopener" class="social-card" title="Follow us on X (Twitter)">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    <span>X</span>
+                </a>
+                <!-- Instagram -->
+                <a href="https://instagram.com/driflare" target="_blank" rel="noopener" class="social-card" title="Follow us on Instagram">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span>Instagram</span>
+                </a>
+                <!-- Threads -->
+                <a href="https://threads.net/driflare" target="_blank" rel="noopener" class="social-card" title="Read our updates on Threads">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.18 13.9c-.3.49-.71.86-1.22 1.13-.5.26-1.12.39-1.84.39-.73 0-1.35-.15-1.87-.45-.52-.3-1.02-.73-1.48-1.3-.43.51-.88.92-1.34 1.2-.46.28-.96.42-1.5.42-.69 0-1.24-.22-1.65-.65s-.62-1-.62-1.72c0-.79.28-1.41.83-1.88s1.3-.7 2.25-.7h.93v-.44c0-.36-.08-.66-.25-.89-.17-.23-.46-.35-.87-.35-.35 0-.64.08-.87.23-.23.15-.38.38-.45.68H5.66c.05-.72.34-1.31.86-1.77S7.79 8.2 8.87 8.2c.86 0 1.51.24 1.95.72.44.48.66 1.18.66 2.1v2.53c.12.23.27.42.45.56.18.14.39.21.64.21.36 0 .64-.1.85-.3.21-.2.32-.51.32-.93V10.2c0-.85-.23-1.53-.7-2.03s-1.14-.75-2.02-.75c-.88 0-1.63.26-2.24.77-.61.51-1.05 1.25-1.31 2.2-.26.96-.39 2.07-.39 3.34s.13 2.38.39 3.34c.26.95.7 1.69 1.31 2.2.61.51 1.36.77 2.24.77 1.05 0 1.88-.34 2.5-1.03l1.24 1.48c-.89.92-2.12 1.38-3.74 1.38-1.26 0-2.34-.35-3.23-1.06-.89-.71-1.54-1.72-1.94-3.03C5.1 16.27 4.9 14.54 4.9 12.33s.2-3.94.6-5.22c.4-1.28 1.05-2.28 1.94-2.99s1.97-1.06 3.23-1.06c1.23 0 2.27.34 3.12 1.02.85.68 1.46 1.65 1.84 2.91.38 1.26.57 2.76.57 4.5v2.41c0 .88.22 1.54.67 1.99.45.45 1.12.67 2 .67s1.55-.22 2-.67l1.32 1.41c-.69.69-1.64 1.03-2.85 1.03-1.25 0-2.22-.38-2.91-1.13zm-6.42-3.41c-.48 0-.84.11-1.07.34s-.35.54-.35.94c0 .36.1.64.31.84s.48.3.82.3h.36v-2.42h-.07z"/>
+                    </svg>
+                    <span>Threads</span>
+                </a>
+                <!-- Facebook -->
+                <a href="https://facebook.com/driflare" target="_blank" rel="noopener" class="social-card" title="Connect with us on Facebook">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    <span>Facebook</span>
+                </a>
             </div>
         </div>
     </main>
 
-    <!-- Footer Block -->
     <footer>
         <p>© 2026 DRIFLARE. All rights reserved.</p>
-        <div class="founder-credit">Designed & Led by <span>Nathan & Gemini</span></div>
+        <div class="founder-credit">
+            DESIGNED AND LED BY 
+            <span class="founder-wrapper">
+                <span class="founder-trigger">NATHAN</span>
+                <span class="founder-tooltip">
+                    <!-- Nathan Personal - LinkedIn -->
+                    <a href="https://linkedin.com/in/nathan-shako" target="_blank" rel="noopener" title="Nathan on LinkedIn">
+                        <svg class="tooltip-icon" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <!-- Nathan Personal - Facebook -->
+                    <a href="https://facebook.com/" target="_blank" rel="noopener" title="Nathan on Facebook">
+                        <svg class="tooltip-icon" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <!-- Nathan Personal - Instagram -->
+                    <a href="https://instagram.com/nat_shako" target="_blank" rel="noopener" title="Nathan on Instagram">
+                        <svg class="tooltip-icon" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <!-- Nathan Personal - Threads -->
+                    <a href="https://threads.net/nathanshako" target="_blank" rel="noopener" title="Nathan on Threads">
+                        <svg class="tooltip-icon" viewBox="0 0 24 24">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.18 13.9c-.3.49-.71.86-1.22 1.13-.5.26-1.12.39-1.84.39-.73 0-1.35-.15-1.87-.45-.52-.3-1.02-.73-1.48-1.3-.43.51-.88.92-1.34 1.2-.46.28-.96.42-1.5.42-.69 0-1.24-.22-1.65-.65s-.62-1-.62-1.72c0-.79.28-1.41.83-1.88s1.3-.7 2.25-.7h.93v-.44c0-.36-.08-.66-.25-.89-.17-.23-.46-.35-.87-.35-.35 0-.64.08-.87.23-.23.15-.38.38-.45.68H5.66c.05-.72.34-1.31.86-1.77S7.79 8.2 8.87 8.2c.86 0 1.51.24 1.95.72.44.48.66 1.18.66 2.1v2.53c.12.23.27.42.45.56.18.14.39.21.64.21.36 0 .64-.1.85-.3.21-.2.32-.51.32-.93V10.2c0-.85-.23-1.53-.7-2.03s-1.14-.75-2.02-.75c-.88 0-1.63.26-2.24.77-.61.51-1.05 1.25-1.31 2.2-.26.96-.39 2.07-.39 3.34s.13 2.38.39 3.34c.26.95.7 1.69 1.31 2.2.61.51 1.36.77 2.24.77 1.05 0 1.88-.34 2.5-1.03l1.24 1.48c-.89.92-2.12 1.38-3.74 1.38-1.26 0-2.34-.35-3.23-1.06-.89-.71-1.54-1.72-1.94-3.03C5.1 16.27 4.9 14.54 4.9 12.33s.2-3.94.6-5.22c.4-1.28 1.05-2.28 1.94-2.99s1.97-1.06 3.23-1.06c1.23 0 2.27.34 3.12 1.02.85.68 1.46 1.65 1.84 2.91.38 1.26.57 2.76.57 4.5v2.41c0 .88.22 1.54.67 1.99.45.45 1.12.67 2 .67s1.55-.22 2-.67l1.32 1.41c-.69.69-1.64 1.03-2.85 1.03-1.25 0-2.22-.38-2.91-1.13zm-6.42-3.41c-.48 0-.84.11-1.07.34s-.35.54-.35.94c0 .36.1.64.31.84s.48.3.82.3h.36v-2.42h-.07z"/>
+                        </svg>
+                    </a>
+                    <!-- Nathan Personal - X -->
+                    <a href="http://x.com/thenathanshako" target="_blank" rel="noopener" title="Nathan on X">
+                        <svg class="tooltip-icon" viewBox="0 0 24 24">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                </span>
+            </span> 
+            and <span class="gemini-highlight">GEMINI</span>
+        </div>
     </footer>
 
     <script>
@@ -487,14 +805,26 @@
                 this.vy = Math.sin(angle) * speed;
                 this.size = Math.random() * 4 + 2;
                 
-                // Pure monochrome premium color matrix (No Red)
+                // Adaptive monochrome premium color matrix based on theme
+                const isDark = document.body.classList.contains('dark-theme');
                 const randColor = Math.random();
-                if (randColor > 0.6) {
-                    this.color = "#0b0b0e"; // Deep Graphite
-                } else if (randColor > 0.3) {
-                    this.color = "#8e8e93"; // Neutral Grey
+
+                if (isDark) {
+                    if (randColor > 0.6) {
+                        this.color = "#ffffff"; // Pure White
+                    } else if (randColor > 0.3) {
+                        this.color = "#e4e4e7"; // Platinum gray
+                    } else {
+                        this.color = "#a1a1aa"; // Soft Zinc
+                    }
                 } else {
-                    this.color = "#c7c7cc"; // Platinum Gray
+                    if (randColor > 0.6) {
+                        this.color = "#0b0b0e"; // Deep Graphite
+                    } else if (randColor > 0.3) {
+                        this.color = "#8e8e93"; // Neutral Grey
+                    } else {
+                        this.color = "#c7c7cc"; // Platinum Gray
+                    }
                 }
 
                 this.alpha = 1;
@@ -548,7 +878,6 @@
 
             // Update custom telemetry
             flareCount += 45;
-            document.getElementById('telemetry-flares').innerText = String(flareCount).padStart(3, '0');
         }
 
         // Track Pointer Interaction to dynamically seed subtle embers
@@ -558,21 +887,35 @@
             }
         });
 
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('.theme-toggle i');
+            
+            body.classList.toggle('dark-theme');
+            const isDark = body.classList.contains('dark-theme');
+            
+            localStorage.setItem('driflare-theme', isDark ? 'dark' : 'light');
+            
+            if (isDark) {
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
         // Trigger welcome burst immediately on load
         window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('driflare-theme');
+            const icon = document.querySelector('.theme-toggle i');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                if (icon) icon.className = 'fa-solid fa-sun';
+            }
+
             setTimeout(() => {
                 triggerCinematicFlare();
             }, 500);
         });
-
-        // Dynamic Telemetry Simulator Clock
-        const startTime = Date.now();
-        function updateTelemetryClock() {
-            const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
-            document.getElementById('telemetry-time').innerText = elapsed + "s";
-            requestAnimationFrame(updateTelemetryClock);
-        }
-        updateTelemetryClock();
 
         // Main Rendering Loop
         function render() {
