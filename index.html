@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;transition:background-color .3s,color .3s,border-color .3s}
 :root[data-theme="light"] {
@@ -19,6 +20,8 @@
 --shadow:rgba(0,0,0,.08);
 --svg-fill:#111111;
 --svg-personal:#ffffff;
+--input-bg:#f5f5f5;
+--input-border:#e0e0e0;
 }
 :root[data-theme="dark"] {
 --bg:#0a0a0a;
@@ -29,6 +32,8 @@
 --shadow:rgba(0,0,0,.5);
 --svg-fill:#f5f5f5;
 --svg-personal:#0a0a0a;
+--input-bg:#161616;
+--input-border:#333333;
 }
 body{
 font-family:'Space Grotesk',sans-serif;
@@ -135,48 +140,167 @@ margin:0 auto;
 .section h1{font-size:2.5rem;margin-bottom:20px}
 .section p{color:var(--subtext);line-height:1.7;font-size:1.1rem}
 
-.contact{
-max-width:600px;
-margin:auto;
-padding:40px 35px;
-border-radius:25px;
+.contact-card {
+max-width:380px;
 background:var(--card-bg);
+border-radius:20px;
+padding:30px;
+margin:auto;
 border:1px solid rgba(128,128,128,0.1);
 }
-.contact h2{font-size:2rem;margin-bottom:10px}
-.contact p{color:var(--subtext);margin-bottom:20px;font-size:0.95rem}
-.input{
-margin-top:15px;
+
+.contact-card h2{
+font-size:1.3rem;
+margin-bottom:8px;
+text-align:center;
+}
+
+.contact-card p{
+font-size:0.85rem;
+color:var(--subtext);
+text-align:center;
+margin-bottom:20px;
+}
+
+.sliding-viewport {
+display:flex;
+width:200%;
+transition:transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-pane {
+width:50%;
+transition:opacity 0.5s ease;
+}
+
+.form-group {
+margin-bottom:15px;
+}
+
+.form-label {
+display:block;
+font-size:0.75rem;
+font-weight:600;
+text-transform:uppercase;
+letter-spacing:0.05em;
+color:var(--subtext);
+margin-bottom:6px;
+}
+
+.form-input {
 width:100%;
-padding:16px;
-border-radius:12px;
-border:1px solid rgba(128,128,128,0.2);
-background:var(--bg);
+padding:10px 12px;
+background:var(--input-bg);
+border:1px solid var(--input-border);
+border-radius:10px;
 color:var(--text);
 font-family:inherit;
+font-size:0.875rem;
 outline:none;
+transition:all 0.2s ease;
 }
-.input:focus{border-color:var(--text)}
 
-.form-message{
-margin-top:15px;
-padding:12px;
-border-radius:8px;
-text-align:center;
-display:none;
+.form-input:focus {
+border-color:var(--text);
+background:var(--bg);
+box-shadow:0 0 0 2px rgba(0,0,0,0.05);
+}
+
+.form-input.error {
+border-color:#ef4444;
+background:rgba(239,68,68,0.1);
+}
+
+.form-error {
+font-size:0.75rem;
+color:#ef4444;
 font-weight:500;
+margin-top:4px;
+display:none;
 }
 
-.form-message.success{
-background:#4caf50;
-color:white;
-display:block;
+textarea.form-input {
+resize:none;
 }
 
-.form-message.error{
-background:#f44336;
-color:white;
-display:block;
+.submit-btn {
+width:100%;
+margin-top:10px;
+padding:10px;
+background:var(--text);
+color:var(--bg);
+border:none;
+font-weight:bold;
+font-size:0.875rem;
+border-radius:10px;
+cursor:pointer;
+transition:transform 0.2s, opacity 0.2s;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+}
+
+.submit-btn:hover:not(:disabled) {
+transform:scale(1.02);
+}
+
+.submit-btn:disabled {
+opacity:0.7;
+}
+
+.success-pane {
+text-align:center;
+opacity:0;
+pointer-events:none;
+}
+
+.success-icon {
+width:40px;
+height:40px;
+margin:auto auto 20px;
+border-radius:50%;
+background:var(--card-bg);
+border:1px solid rgba(128,128,128,0.1);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.success-icon svg {
+width:24px;
+height:24px;
+stroke:var(--text);
+}
+
+.success-text h3 {
+font-size:0.95rem;
+font-weight:600;
+margin-bottom:8px;
+}
+
+.success-text p {
+font-size:0.8rem;
+color:var(--subtext);
+line-height:1.5;
+}
+
+.reset-btn {
+margin-top:15px;
+padding:8px 16px;
+border:1px solid rgba(128,128,128,0.2);
+background:transparent;
+color:var(--subtext);
+font-weight:500;
+font-size:0.75rem;
+border-radius:8px;
+cursor:pointer;
+transition:all 0.2s;
+}
+
+.reset-btn:hover {
+background:var(--input-bg);
+color:var(--text);
 }
 
 footer{
@@ -346,20 +470,69 @@ Driflare is designed to transform how people create, communicate and innovate.
 </section>
 
 <section class="section">
-<div class="contact">
+<div class="contact-card">
 <h2>Contact Driflare</h2>
 <p>Have an idea or a question? Send us a direct message below.</p>
-<form action="https://formspree.io/f/mzdwjzje" method="POST" id="contactForm">
-<label style="display:none;">
-<input type="email" name="email" id="email" placeholder="Email address" required>
-</label>
-<input class="input" id="fullName" name="name" placeholder="Your name" required>
-<input class="input" id="emailInput" type="email" name="email" placeholder="Email address" required>
-<input class="input" id="subject" name="subject" placeholder="Subject" required>
-<textarea class="input" id="message" name="message" rows="5" placeholder="Message" required></textarea>
-<button type="submit" class="btn" style="width:100%;margin-top:20px">Send Message</button>
-<div id="formMessage" class="form-message"></div>
+
+<div id="slidingViewport" class="sliding-viewport">
+<!-- FORM PANE -->
+<div id="formPane" class="slide-pane opacity-100">
+<form id="contactForm" novalidate>
+<!-- Name -->
+<div class="form-group">
+<label for="name" class="form-label">Name</label>
+<input type="text" id="name" required placeholder="Your name" class="form-input">
+<p id="nameError" class="form-error">Please enter your name</p>
+</div>
+
+<!-- Email -->
+<div class="form-group">
+<label for="email" class="form-label">Email</label>
+<input type="email" id="email" required placeholder="name@domain.com" class="form-input">
+<p id="emailError" class="form-error">Please enter a valid email</p>
+</div>
+
+<!-- Subject -->
+<div class="form-group">
+<label for="subject" class="form-label">Subject</label>
+<input type="text" id="subject" required placeholder="What's this about?" class="form-input">
+<p id="subjectError" class="form-error">Please enter a subject</p>
+</div>
+
+<!-- Message -->
+<div class="form-group">
+<label for="message" class="form-label">Message</label>
+<textarea id="message" rows="3" required placeholder="What's on your mind?" class="form-input"></textarea>
+<p id="messageError" class="form-error">Message cannot be empty</p>
+</div>
+
+<!-- Submit Button -->
+<button type="submit" id="submitBtn" class="submit-btn">
+<span>Send Message</span>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+</svg>
+</button>
 </form>
+</div>
+
+<!-- SUCCESS PANE -->
+<div id="successPane" class="slide-pane success-pane">
+<div style="margin:auto;">
+<div class="success-icon">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+</svg>
+</div>
+<div class="success-text">
+<h3>Message Dispatched</h3>
+<p>Your details arrived safely. Expect our answer shortly.</p>
+</div>
+<button id="resetBtn" type="button" class="reset-btn">Send another</button>
+</div>
+</div>
+</div>
+
 </div>
 </section>
 
@@ -446,26 +619,170 @@ function updateThemeIcon(theme) {
   document.querySelector('#themeIcon path').setAttribute('d', theme === 'dark' ? sunPath : moonPath);
 }
 
-// Handle form success message (Formspree redirects on success)
-window.addEventListener('message', event => {
-  if (event.data.type === 'formspree') {
-    const messageDiv = document.getElementById('formMessage');
-    if (event.data.success) {
-      showMessage('✅ Message sent successfully! We\'ll get back to you soon.', 'success', messageDiv);
-      document.getElementById('contactForm').reset();
-    }
-  }
-});
+// Contact Form Logic
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const slidingViewport = document.getElementById('slidingViewport');
+  const formPane = document.getElementById('formPane');
+  const successPane = document.getElementById('successPane');
+  const resetBtn = document.getElementById('resetBtn');
 
-function showMessage(text, type, element) {
-  element.textContent = text;
-  element.className = 'form-message ' + type;
-  
-  setTimeout(() => {
-    element.className = 'form-message';
-    element.textContent = '';
-  }, 5000);
-}
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const subjectInput = document.getElementById('subject');
+  const messageInput = document.getElementById('message');
+
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
+  const subjectError = document.getElementById('subjectError');
+  const messageError = document.getElementById('messageError');
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Form Submit
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let isValid = true;
+
+    // Validate Name
+    if (nameInput.value.trim() === '') {
+      nameError.style.display = 'block';
+      nameInput.classList.add('error');
+      isValid = false;
+    } else {
+      nameError.style.display = 'none';
+      nameInput.classList.remove('error');
+    }
+
+    // Validate Email
+    if (!emailRegex.test(emailInput.value.trim())) {
+      emailError.style.display = 'block';
+      emailInput.classList.add('error');
+      isValid = false;
+    } else {
+      emailError.style.display = 'none';
+      emailInput.classList.remove('error');
+    }
+
+    // Validate Subject
+    if (subjectInput.value.trim() === '') {
+      subjectError.style.display = 'block';
+      subjectInput.classList.add('error');
+      isValid = false;
+    } else {
+      subjectError.style.display = 'none';
+      subjectInput.classList.remove('error');
+    }
+
+    // Validate Message
+    if (messageInput.value.trim() === '') {
+      messageError.style.display = 'block';
+      messageInput.classList.add('error');
+      isValid = false;
+    } else {
+      messageError.style.display = 'none';
+      messageInput.classList.remove('error');
+    }
+
+    if (isValid) {
+      // Disable button and show loading
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg class="animate-spin h-3.5 w-3.5" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Sending...</span>
+      `;
+
+      // Send to Formspree
+      const formData = new FormData();
+      formData.append('name', nameInput.value);
+      formData.append('email', emailInput.value);
+      formData.append('subject', subjectInput.value);
+      formData.append('message', messageInput.value);
+
+      fetch('https://formspree.io/f/mzdwjzje', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Slide to success pane after 800ms
+          setTimeout(() => {
+            slidingViewport.style.transform = "translateX(-50%)";
+            formPane.classList.replace('opacity-100', 'opacity-0');
+            successPane.classList.replace('opacity-0', 'opacity-100');
+            successPane.classList.remove('pointer-events-none');
+          }, 800);
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <span>Send Message</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          `;
+          alert('Error sending message. Please try again.');
+        }
+      })
+      .catch(error => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+          <span>Send Message</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        `;
+        console.error('Error:', error);
+      });
+    }
+  });
+
+  // Clear errors on input
+  nameInput.addEventListener('input', () => {
+    nameError.style.display = 'none';
+    nameInput.classList.remove('error');
+  });
+
+  emailInput.addEventListener('input', () => {
+    emailError.style.display = 'none';
+    emailInput.classList.remove('error');
+  });
+
+  subjectInput.addEventListener('input', () => {
+    subjectError.style.display = 'none';
+    subjectInput.classList.remove('error');
+  });
+
+  messageInput.addEventListener('input', () => {
+    messageError.style.display = 'none';
+    messageInput.classList.remove('error');
+  });
+
+  // Reset Button
+  resetBtn.addEventListener('click', () => {
+    slidingViewport.style.transform = "translateX(0)";
+    successPane.classList.replace('opacity-100', 'opacity-0');
+    successPane.classList.add('pointer-events-none');
+    formPane.classList.replace('opacity-0', 'opacity-100');
+
+    setTimeout(() => {
+      form.reset();
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `
+        <span>Send Message</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      `;
+    }, 400);
+  });
+});
 
 // Load theme on page load
 loadTheme();
