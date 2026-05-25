@@ -3,8 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Driflare</title>
-  <link rel="icon" type="image/png" href="logo-removebg-preview.png">
+<title>Driflare – Building Tomorrow, Today</title>
+<meta name="description" content="Driflare builds future-driven technology experiences designed to remove friction between ideas, people, and innovation.">
+<meta property="og:title" content="Driflare – Building Tomorrow, Today">
+<meta property="og:description" content="Driflare builds future-driven technology experiences designed to remove friction between ideas, people, and innovation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://driflare.com">
+<meta property="og:image" content="logo-removebg-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Driflare – Building Tomorrow, Today">
+<meta name="twitter:description" content="Driflare builds future-driven technology experiences designed to remove friction between ideas, people, and innovation.">
+<link rel="icon" type="image/png" href="logo-removebg-preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
@@ -75,8 +84,48 @@ object-fit:contain;
 .links a{text-decoration:none;color:var(--text);font-weight:500}
 .theme-toggle{background:none;border:none;cursor:pointer;padding:5px;display:flex;align-items:center;justify-content:center}
 .theme-toggle svg{width:22px;height:22px;fill:var(--svg-fill)}
-.menu{display:none;cursor:pointer}
-.menu svg{width:26px;height:26px;fill:var(--svg-fill)}
+
+/* ── Burger button ── */
+.menu{
+display:none;
+cursor:pointer;
+background:none;
+border:none;
+padding:4px;
+width:34px;
+height:34px;
+position:relative;
+}
+.burger-bar{
+display:block;
+position:absolute;
+left:4px;
+width:26px;
+height:2.5px;
+background:var(--svg-fill);
+border-radius:2px;
+transition:transform .35s cubic-bezier(.4,0,.2,1),
+           opacity   .25s ease,
+           top       .35s cubic-bezier(.4,0,.2,1),
+           width     .3s ease;
+}
+.burger-bar:nth-child(1){ top:8px; }
+.burger-bar:nth-child(2){ top:15px; }
+.burger-bar:nth-child(3){ top:22px; }
+
+/* X state */
+.menu.open .burger-bar:nth-child(1){
+  top:15px;
+  transform:rotate(45deg);
+}
+.menu.open .burger-bar:nth-child(2){
+  opacity:0;
+  transform:scaleX(0);
+}
+.menu.open .burger-bar:nth-child(3){
+  top:15px;
+  transform:rotate(-45deg);
+}
 
 .hero{
 min-height:100vh;
@@ -303,6 +352,9 @@ background:var(--input-bg);
 color:var(--text);
 }
 
+/* honeypot – visually hidden */
+.gotcha{display:none}
+
 footer{
 padding:60px 30px;
 text-align:center;
@@ -416,7 +468,7 @@ text-align:center;
 gap:15px;
 }
 .links.active{display:flex}
-.menu{display:block}
+.menu{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;}
 .hero h1{font-size:2.5rem}
 .stats{padding:20px}
 }
@@ -424,193 +476,197 @@ gap:15px;
 </head>
 <body>
 
-<nav>
-<div class="logo-container">
-<img src="logo-removebg-preview.png" alt="Driflare Logo" class="logo-img">
-<div class="logo">DRIFLARE</div>
-</div>
-<div class="nav-right">
-<div class="links" id="links">
-<a href="#">Home</a>
-<a href="#">About</a>
-<a href="#">Mission</a>
-<a href="#">Projects</a>
-<a href="#">Contact</a>
-</div>
-<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" id="themeBtn">
-<svg viewBox="0 0 24 24" id="themeIcon"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
-</button>
-<div class="menu" onclick="toggleMenu()">
-<svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-</div>
-</div>
+<nav id="mainNav">
+  <div class="logo-container">
+    <img src="logo-removebg-preview.png" alt="Driflare Logo" class="logo-img">
+    <div class="logo">DRIFLARE</div>
+  </div>
+  <div class="nav-right">
+    <div class="links" id="links">
+      <a href="#home"    onclick="closeMenu()">Home</a>
+      <a href="#about"   onclick="closeMenu()">About</a>
+      <a href="#mission" onclick="closeMenu()">Mission</a>
+      <a href="#projects"onclick="closeMenu()">Projects</a>
+      <a href="#contact" onclick="closeMenu()">Contact</a>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" id="themeBtn">
+      <svg viewBox="0 0 24 24" id="themeIcon"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+    </button>
+    <!-- Burger / X toggle -->
+    <button class="menu" id="menuBtn" onclick="toggleMenu()" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
 </nav>
 
-<section class="hero">
-<h1>Building Tomorrow, Today</h1>
-<p>
-Driflare exists to remove friction between ideas, people and technology.
-We build future-driven experiences designed to help the world move faster.
-</p>
-<button class="btn">Explore Driflare</button>
+<section class="hero" id="home">
+  <h1>Building Tomorrow, Today</h1>
+  <p>
+    Driflare exists to remove friction between ideas, people and technology.
+    We build future-driven experiences designed to help the world move faster.
+  </p>
+  <button class="btn" onclick="document.getElementById('mission').scrollIntoView({behavior:'smooth'})">Explore Driflare</button>
 </section>
 
-<section class="stats">
-<div class="card"><h2>∞</h2><p>Possibilities</p></div>
-<div class="card"><h2>24/7</h2><p>Innovation</p></div>
-<div class="card"><h2>1</h2><p>Mission</p></div>
+<section class="stats" id="about">
+  <div class="card"><h2>∞</h2><p>Possibilities</p></div>
+  <div class="card"><h2>24/7</h2><p>Innovation</p></div>
+  <div class="card"><h2>1</h2><p>Mission</p></div>
 </section>
 
-<section class="section">
-<h1>Our Mission</h1>
-<p>
-Create technology that feels effortless, intelligent and useful.
-Driflare is designed to transform how people create, communicate and innovate.
-</p>
+<section class="section" id="mission">
+  <h1>Our Mission</h1>
+  <p>
+    Create technology that feels effortless, intelligent and useful.
+    Driflare is designed to transform how people create, communicate and innovate.
+  </p>
 </section>
 
-<section class="section">
-<div class="contact-card">
-<h2>Contact Driflare</h2>
-<p>Have an idea or a question? Send us a direct message below.</p>
+<section class="section" id="projects">
+  <h1>Projects</h1>
+  <p>
+    We are working on experiences that push boundaries.
+    Stay tuned — something remarkable is on its way.
+  </p>
+</section>
 
-<div id="slidingViewport" class="sliding-viewport">
-<!-- FORM PANE -->
-<div id="formPane" class="slide-pane opacity-100">
-<form id="contactForm" novalidate>
-<!-- Name -->
-<div class="form-group">
-<label for="name" class="form-label">Name</label>
-<input type="text" id="name" required placeholder="Your name" class="form-input">
-<p id="nameError" class="form-error">Please enter your name</p>
-</div>
+<section class="section" id="contact">
+  <div class="contact-card">
+    <h2>Contact Driflare</h2>
+    <p>Have an idea or a question? Send us a direct message below.</p>
 
-<!-- Email -->
-<div class="form-group">
-<label for="email" class="form-label">Email</label>
-<input type="email" id="email" required placeholder="name@domain.com" class="form-input">
-<p id="emailError" class="form-error">Please enter a valid email</p>
-</div>
+    <div id="slidingViewport" class="sliding-viewport">
+      <!-- FORM PANE -->
+      <div id="formPane" class="slide-pane opacity-100">
+        <form id="contactForm" novalidate>
+          <!-- Honeypot anti-spam -->
+          <input type="text" name="_gotcha" class="gotcha" tabindex="-1" autocomplete="off">
 
-<!-- Subject -->
-<div class="form-group">
-<label for="subject" class="form-label">Subject</label>
-<input type="text" id="subject" required placeholder="What's this about?" class="form-input">
-<p id="subjectError" class="form-error">Please enter a subject</p>
-</div>
+          <div class="form-group">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" id="name" required placeholder="Your name" class="form-input">
+            <p id="nameError" class="form-error">Please enter your name</p>
+          </div>
 
-<!-- Message -->
-<div class="form-group">
-<label for="message" class="form-label">Message</label>
-<textarea id="message" rows="3" required placeholder="What's on your mind?" class="form-input"></textarea>
-<p id="messageError" class="form-error">Message cannot be empty</p>
-</div>
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" required placeholder="name@domain.com" class="form-input">
+            <p id="emailError" class="form-error">Please enter a valid email</p>
+          </div>
 
-<!-- Submit Button -->
-<button type="submit" id="submitBtn" class="submit-btn">
-<span>Send Message</span>
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
-<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-</svg>
-</button>
-</form>
-</div>
+          <div class="form-group">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" id="subject" required placeholder="What's this about?" class="form-input">
+            <p id="subjectError" class="form-error">Please enter a subject</p>
+          </div>
 
-<!-- SUCCESS PANE -->
-<div id="successPane" class="slide-pane success-pane">
-<div style="margin:auto;">
-<div class="success-icon">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
-<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-</svg>
-</div>
-<div class="success-text">
-<h3>Message Dispatched</h3>
-<p>Your details arrived safely. Expect our answer shortly.</p>
-</div>
-<button id="resetBtn" type="button" class="reset-btn">Send another</button>
-</div>
-</div>
-</div>
+          <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" rows="3" required placeholder="What's on your mind?" class="form-input"></textarea>
+            <p id="messageError" class="form-error">Message cannot be empty</p>
+          </div>
 
-</div>
+          <button type="submit" id="submitBtn" class="submit-btn">
+            <span>Send Message</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- SUCCESS PANE -->
+      <div id="successPane" class="slide-pane success-pane">
+        <div style="margin:auto;">
+          <div class="success-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+          </div>
+          <div class="success-text">
+            <h3>Message Dispatched</h3>
+            <p>Your details arrived safely. Expect our answer shortly.</p>
+          </div>
+          <button id="resetBtn" type="button" class="reset-btn">Send another</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <footer>
-<div class="driflare-socials">
-<a class="social-link" href="https://linkedin.com/company/driflare" target="_blank">
-<svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.13c0-.91.73-1.64 1.64-1.64.9 0 1.64.73 1.64 1.64v4.13h2.79V15a4.04 4.04 0 0 0-4.04-4.04 4 4 0 0 0-3.72 2.3V11h-2.78v8.37h2.78z"/></svg>
-LinkedIn
-</a>
-<a class="social-link" href="https://facebook.com/driflare" target="_blank">
-<svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
-Facebook
-</a>
-<a class="social-link" href="https://instagram.com/driflare" target="_blank">
-<svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m6.5-1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-Instagram
-</a>
-<a class="social-link" href="http://threads.com/driflare" target="_blank">
-<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.65 12.35c-.48.63-1.15 1.02-1.95 1.14-.32.05-.65.07-.98.07-1.85 0-3.32-1.08-3.75-2.77-.12-.47-.19-.96-.19-1.46 0-.5.07-.99.19-1.46.43-1.69 1.9-2.77 3.75-2.77.33 0 .66.02.98.07.8.12 1.47.51 1.95 1.14.48.63.75 1.45.75 2.31 0 .86-.27 1.68-.75 2.31z"/></svg>
-Threads
-</a>
-<a class="social-link" href="http://x.com/driflare" target="_blank">
-<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-X
-</a>
-</div>
+  <div class="driflare-socials">
+    <a class="social-link" href="https://linkedin.com/company/driflare" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.13c0-.91.73-1.64 1.64-1.64.9 0 1.64.73 1.64 1.64v4.13h2.79V15a4.04 4.04 0 0 0-4.04-4.04 4 4 0 0 0-3.72 2.3V11h-2.78v8.37h2.78z"/></svg>
+      LinkedIn
+    </a>
+    <a class="social-link" href="https://facebook.com/driflare" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+      Facebook
+    </a>
+    <a class="social-link" href="https://instagram.com/driflare" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m6.5-1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+      Instagram
+    </a>
+    <a class="social-link" href="http://threads.com/driflare" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.65 12.35c-.48.63-1.15 1.02-1.95 1.14-.32.05-.65.07-.98.07-1.85 0-3.32-1.08-3.75-2.77-.12-.47-.19-.96-.19-1.46 0-.5.07-.99.19-1.46.43-1.69 1.9-2.77 3.75-2.77.33 0 .66.02.98.07.8.12 1.47.51 1.95 1.14.48.63.75 1.45.75 2.31 0 .86-.27 1.68-.75 2.31z"/></svg>
+      Threads
+    </a>
+    <a class="social-link" href="http://x.com/driflare" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      X
+    </a>
+  </div>
 
-<div class="credits">
-DESIGNED AND LED BY <span class="creator-trigger">NATHAN & GEMINI</span>
-<div class="personal-card">
-<p>Connect with Nathan</p>
-<div class="personal-links">
-<a href="https://linkedin.com/in/nathan-shako" target="_blank">
-<svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.13c0-.91.73-1.64 1.64-1.64.9 0 1.64.73 1.64 1.64v4.13h2.79V15a4.04 4.04 0 0 0-4.04-4.04 4 4 0 0 0-3.72 2.3V11h-2.78v8.37h2.78z"/></svg>
-LinkedIn
-</a>
-<a href="https://facebook.com/thenathan.shako" target="_blank">
-<svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
-Facebook
-</a>
-<a href="https://instagram.com/nat_shako" target="_blank">
-<svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m6.5-1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-Instagram
-</a>
-<a href="http://threads.com/nathanshako" target="_blank">
-<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.65 12.35c-.48.63-1.15 1.02-1.95 1.14-.32.05-.65.07-.98.07-1.85 0-3.32-1.08-3.75-2.77-.12-.47-.19-.96-.19-1.46 0-.5.07-.99.19-1.46.43-1.69 1.9-2.77 3.75-2.77.33 0 .66.02.98.07.8.12 1.47.51 1.95 1.14.48.63.75 1.45.75 2.31 0 .86-.27 1.68-.75 2.31z"/></svg>
-Threads
-</a>
-<a href="http://x.com/thenathanshako" target="_blank" style="grid-column: span 2">
-<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-X Platform
-</a>
-</div>
-</div>
-</div>
+  <div class="credits">
+    DESIGNED AND LED BY <span class="creator-trigger">NATHAN SHAKO</span>
+    <div class="personal-card">
+      <p>Connect with Nathan</p>
+      <div class="personal-links">
+        <a href="https://linkedin.com/in/nathan-shako" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.13c0-.91.73-1.64 1.64-1.64.9 0 1.64.73 1.64 1.64v4.13h2.79V15a4.04 4.04 0 0 0-4.04-4.04 4 4 0 0 0-3.72 2.3V11h-2.78v8.37h2.78z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://facebook.com/thenathan.shako" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+          Facebook
+        </a>
+        <a href="https://instagram.com/nat_shako" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m6.5-1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+          Instagram
+        </a>
+        <a href="http://threads.com/nathanshako" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.65 12.35c-.48.63-1.15 1.02-1.95 1.14-.32.05-.65.07-.98.07-1.85 0-3.32-1.08-3.75-2.77-.12-.47-.19-.96-.19-1.46 0-.5.07-.99.19-1.46.43-1.69 1.9-2.77 3.75-2.77.33 0 .66.02.98.07.8.12 1.47.51 1.95 1.14.48.63.75 1.45.75 2.31 0 .86-.27 1.68-.75 2.31z"/></svg>
+          Threads
+        </a>
+        <a href="http://x.com/thenathanshako" target="_blank" rel="noopener" style="grid-column:span 2">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X Platform
+        </a>
+      </div>
+    </div>
+  </div>
 
-<div>© 2026 Driflare • All rights reserved.</div>
+  <div>© 2026 Driflare • All rights reserved.</div>
 </footer>
 
 <script>
-// Load theme from localStorage on page load
+/* ── Theme ── */
 function loadTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  updateThemeIcon(savedTheme);
-}
-
-function toggleMenu(){
-  document.getElementById("links").classList.toggle("active");
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateThemeIcon(saved);
 }
 
 function toggleTheme() {
   const root = document.documentElement;
-  const currentTheme = root.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  root.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-  updateThemeIcon(newTheme);
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateThemeIcon(next);
 }
 
 function updateThemeIcon(theme) {
@@ -619,172 +675,141 @@ function updateThemeIcon(theme) {
   document.querySelector('#themeIcon path').setAttribute('d', theme === 'dark' ? sunPath : moonPath);
 }
 
-// Contact Form Logic
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('contactForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const slidingViewport = document.getElementById('slidingViewport');
-  const formPane = document.getElementById('formPane');
-  const successPane = document.getElementById('successPane');
-  const resetBtn = document.getElementById('resetBtn');
+/* ── Mobile menu ── */
+let menuOpen = false;
 
-  const nameInput = document.getElementById('name');
-  const emailInput = document.getElementById('email');
+function openMenu() {
+  menuOpen = true;
+  document.getElementById('links').classList.add('active');
+  document.getElementById('menuBtn').classList.add('open');
+  document.getElementById('menuBtn').setAttribute('aria-expanded', 'true');
+}
+
+function closeMenu() {
+  menuOpen = false;
+  document.getElementById('links').classList.remove('active');
+  document.getElementById('menuBtn').classList.remove('open');
+  document.getElementById('menuBtn').setAttribute('aria-expanded', 'false');
+}
+
+function toggleMenu() {
+  menuOpen ? closeMenu() : openMenu();
+}
+
+/* Close menu when clicking outside the nav */
+document.addEventListener('click', function(e) {
+  if (menuOpen && !document.getElementById('mainNav').contains(e.target)) {
+    closeMenu();
+  }
+});
+
+/* ── Contact form ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const form        = document.getElementById('contactForm');
+  const submitBtn   = document.getElementById('submitBtn');
+  const viewport    = document.getElementById('slidingViewport');
+  const formPane    = document.getElementById('formPane');
+  const successPane = document.getElementById('successPane');
+  const resetBtn    = document.getElementById('resetBtn');
+
+  const nameInput    = document.getElementById('name');
+  const emailInput   = document.getElementById('email');
   const subjectInput = document.getElementById('subject');
   const messageInput = document.getElementById('message');
 
-  const nameError = document.getElementById('nameError');
-  const emailError = document.getElementById('emailError');
+  const nameError    = document.getElementById('nameError');
+  const emailError   = document.getElementById('emailError');
   const subjectError = document.getElementById('subjectError');
   const messageError = document.getElementById('messageError');
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Form Submit
+  const SEND_ICON = `<span>Send Message</span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+    </svg>`;
+
+  const SPIN_ICON = `<svg class="animate-spin h-3.5 w-3.5" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    <span>Sending...</span>`;
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    let isValid = true;
 
-    // Validate Name
-    if (nameInput.value.trim() === '') {
-      nameError.style.display = 'block';
-      nameInput.classList.add('error');
-      isValid = false;
-    } else {
-      nameError.style.display = 'none';
-      nameInput.classList.remove('error');
-    }
+    /* Honeypot check – if filled, silently abort */
+    if (form.querySelector('.gotcha').value !== '') return;
 
-    // Validate Email
-    if (!emailRegex.test(emailInput.value.trim())) {
-      emailError.style.display = 'block';
-      emailInput.classList.add('error');
-      isValid = false;
-    } else {
-      emailError.style.display = 'none';
-      emailInput.classList.remove('error');
-    }
+    let valid = true;
 
-    // Validate Subject
-    if (subjectInput.value.trim() === '') {
-      subjectError.style.display = 'block';
-      subjectInput.classList.add('error');
-      isValid = false;
-    } else {
-      subjectError.style.display = 'none';
-      subjectInput.classList.remove('error');
-    }
+    const check = (input, error, test) => {
+      if (!test) { error.style.display = 'block'; input.classList.add('error'); valid = false; }
+      else        { error.style.display = 'none';  input.classList.remove('error'); }
+    };
 
-    // Validate Message
-    if (messageInput.value.trim() === '') {
-      messageError.style.display = 'block';
-      messageInput.classList.add('error');
-      isValid = false;
-    } else {
-      messageError.style.display = 'none';
-      messageInput.classList.remove('error');
-    }
+    check(nameInput,    nameError,    nameInput.value.trim() !== '');
+    check(emailInput,   emailError,   emailRegex.test(emailInput.value.trim()));
+    check(subjectInput, subjectError, subjectInput.value.trim() !== '');
+    check(messageInput, messageError, messageInput.value.trim() !== '');
 
-    if (isValid) {
-      // Disable button and show loading
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `
-        <svg class="animate-spin h-3.5 w-3.5" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-        <span>Sending...</span>
-      `;
+    if (!valid) return;
 
-      // Send to Formspree
-      const formData = new FormData();
-      formData.append('name', nameInput.value);
-      formData.append('email', emailInput.value);
-      formData.append('subject', subjectInput.value);
-      formData.append('message', messageInput.value);
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = SPIN_ICON;
 
-      fetch('https://formspree.io/f/mzdwjzje', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          // Slide to success pane after 800ms
-          setTimeout(() => {
-            slidingViewport.style.transform = "translateX(-50%)";
-            formPane.classList.replace('opacity-100', 'opacity-0');
-            successPane.classList.replace('opacity-0', 'opacity-100');
-            successPane.classList.remove('pointer-events-none');
-          }, 800);
-        } else {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = `
-            <span>Send Message</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          `;
-          alert('Error sending message. Please try again.');
-        }
-      })
-      .catch(error => {
+    const data = new FormData();
+    data.append('name',    nameInput.value);
+    data.append('email',   emailInput.value);
+    data.append('subject', subjectInput.value);
+    data.append('message', messageInput.value);
+
+    fetch('https://formspree.io/f/mzdwjzje', {
+      method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+    })
+    .then(res => {
+      if (res.ok) {
+        setTimeout(() => {
+          viewport.style.transform = 'translateX(-50%)';
+          formPane.classList.replace('opacity-100', 'opacity-0');
+          successPane.classList.replace('opacity-0', 'opacity-100');
+          successPane.classList.remove('pointer-events-none');
+        }, 800);
+      } else {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = `
-          <span>Send Message</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-          </svg>
-        `;
-        console.error('Error:', error);
-      });
-    }
+        submitBtn.innerHTML = SEND_ICON;
+        alert('Error sending message. Please try again.');
+      }
+    })
+    .catch(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = SEND_ICON;
+    });
   });
 
-  // Clear errors on input
-  nameInput.addEventListener('input', () => {
-    nameError.style.display = 'none';
-    nameInput.classList.remove('error');
+  /* Clear errors on input */
+  [nameInput, emailInput, subjectInput, messageInput].forEach(el => {
+    const errId = el.id + 'Error';
+    el.addEventListener('input', () => {
+      document.getElementById(errId).style.display = 'none';
+      el.classList.remove('error');
+    });
   });
 
-  emailInput.addEventListener('input', () => {
-    emailError.style.display = 'none';
-    emailInput.classList.remove('error');
-  });
-
-  subjectInput.addEventListener('input', () => {
-    subjectError.style.display = 'none';
-    subjectInput.classList.remove('error');
-  });
-
-  messageInput.addEventListener('input', () => {
-    messageError.style.display = 'none';
-    messageInput.classList.remove('error');
-  });
-
-  // Reset Button
+  /* Reset */
   resetBtn.addEventListener('click', () => {
-    slidingViewport.style.transform = "translateX(0)";
+    viewport.style.transform = 'translateX(0)';
     successPane.classList.replace('opacity-100', 'opacity-0');
     successPane.classList.add('pointer-events-none');
     formPane.classList.replace('opacity-0', 'opacity-100');
-
     setTimeout(() => {
       form.reset();
       submitBtn.disabled = false;
-      submitBtn.innerHTML = `
-        <span>Send Message</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-        </svg>
-      `;
+      submitBtn.innerHTML = SEND_ICON;
     }, 400);
   });
 });
 
-// Load theme on page load
 loadTheme();
 </script>
 
