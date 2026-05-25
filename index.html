@@ -350,11 +350,14 @@ Driflare is designed to transform how people create, communicate and innovate.
 <div class="contact">
 <h2>Contact Driflare</h2>
 <p>Have an idea or a question? Send us a direct message below.</p>
-<form id="contactForm">
-<input class="input" id="fullName" placeholder="Your name" required>
-<input class="input" id="email" type="email" placeholder="Email address" required>
-<input class="input" id="subject" placeholder="Subject" required>
-<textarea class="input" id="message" rows="5" placeholder="Message" required></textarea>
+<form action="https://formspree.io/f/mzdwjzje" method="POST" id="contactForm">
+<label style="display:none;">
+<input type="email" name="email" id="email" placeholder="Email address" required>
+</label>
+<input class="input" id="fullName" name="name" placeholder="Your name" required>
+<input class="input" id="emailInput" type="email" name="email" placeholder="Email address" required>
+<input class="input" id="subject" name="subject" placeholder="Subject" required>
+<textarea class="input" id="message" name="message" rows="5" placeholder="Message" required></textarea>
 <button type="submit" class="btn" style="width:100%;margin-top:20px">Send Message</button>
 <div id="formMessage" class="form-message"></div>
 </form>
@@ -444,54 +447,15 @@ function updateThemeIcon(theme) {
   document.querySelector('#themeIcon path').setAttribute('d', theme === 'dark' ? sunPath : moonPath);
 }
 
-// Handle contact form submission
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-  const fullName = document.getElementById('fullName').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const subject = document.getElementById('subject').value.trim();
-  const message = document.getElementById('message').value.trim();
-  const messageDiv = document.getElementById('formMessage');
-  
-  // Validate inputs
-  if (!fullName || !email || !subject || !message) {
-    showMessage('Please fill in all fields.', 'error', messageDiv);
-    return;
-  }
-  
-  // Send email using EmailJS (free service)
-  // First, you need to sign up at https://www.emailjs.com/
-  // Replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID with actual values
-  
-  const templateParams = {
-    from_name: fullName,
-    from_email: email,
-    subject: subject,
-    message: message,
-    to_email: 'nathanshako10@gmail.com'
-  };
-  
-  // Using FormSubmit.co (no signup needed, free service)
-  fetch('https://formspree.io/f/mvgjdpwg', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(templateParams)
-  })
-  .then(response => {
-    if (response.ok) {
+// Handle form success message (Formspree redirects on success)
+window.addEventListener('message', event => {
+  if (event.data.type === 'formspree') {
+    const messageDiv = document.getElementById('formMessage');
+    if (event.data.success) {
       showMessage('✅ Message sent successfully! We\'ll get back to you soon.', 'success', messageDiv);
       document.getElementById('contactForm').reset();
-    } else {
-      showMessage('❌ Failed to send message. Please try again.', 'error', messageDiv);
     }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    showMessage('❌ Error sending message. Please try again later.', 'error', messageDiv);
-  });
+  }
 });
 
 function showMessage(text, type, element) {
