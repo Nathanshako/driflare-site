@@ -9,11 +9,16 @@
 <meta property="og:description" content="Driflare builds future-driven technology experiences designed to remove friction between ideas, people, and innovation.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://driflare.com">
-<meta property="og:image" content="logo-removebg-preview.png">
+<meta property="og:image" content="https://driflare.com/logo-removebg-preview.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Driflare – Building Tomorrow, Today">
 <meta name="twitter:description" content="Driflare builds future-driven technology experiences designed to remove friction between ideas, people, and innovation.">
-<link rel="icon" type="image/png" href="logo-removebg-preview.png">
+
+<!-- Favicon optimization for Search Engines (Requires a perfect 1:1 square image) -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://driflare.com/logo-removebg-preview.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://driflare.com/logo-removebg-preview.png">
+<link rel="apple-touch-icon" href="https://driflare.com/logo-removebg-preview.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
@@ -568,6 +573,11 @@ gap:15px;
             <p id="messageError" class="form-error">Message cannot be empty</p>
           </div>
 
+          <!-- Custom Submission Error Message Box -->
+          <p id="formSubmitError" class="form-error mb-3 text-center text-red-500 font-semibold text-xs hidden">
+            Failed to send message. Please check connection and try again.
+          </p>
+
           <button type="submit" id="submitBtn" class="submit-btn">
             <span>Send Message</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
@@ -705,12 +715,13 @@ document.addEventListener('click', function(e) {
 
 /* ── Contact form ── */
 document.addEventListener('DOMContentLoaded', () => {
-  const form        = document.getElementById('contactForm');
-  const submitBtn   = document.getElementById('submitBtn');
-  const viewport    = document.getElementById('slidingViewport');
-  const formPane    = document.getElementById('formPane');
-  const successPane = document.getElementById('successPane');
-  const resetBtn    = document.getElementById('resetBtn');
+  const form             = document.getElementById('contactForm');
+  const submitBtn        = document.getElementById('submitBtn');
+  const viewport         = document.getElementById('slidingViewport');
+  const formPane         = document.getElementById('formPane');
+  const successPane      = document.getElementById('successPane');
+  const resetBtn         = document.getElementById('resetBtn');
+  const formSubmitError  = document.getElementById('formSubmitError');
 
   const nameInput    = document.getElementById('name');
   const emailInput   = document.getElementById('email');
@@ -757,6 +768,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     submitBtn.disabled = true;
     submitBtn.innerHTML = SPIN_ICON;
+    formSubmitError.classList.add('hidden'); // Hide any previous error
 
     const data = new FormData();
     data.append('name',    nameInput.value);
@@ -778,12 +790,13 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         submitBtn.disabled = false;
         submitBtn.innerHTML = SEND_ICON;
-        alert('Error sending message. Please try again.');
+        formSubmitError.classList.remove('hidden'); // Show elegant custom error message
       }
     })
     .catch(() => {
       submitBtn.disabled = false;
       submitBtn.innerHTML = SEND_ICON;
+      formSubmitError.classList.remove('hidden'); // Show elegant custom error message
     });
   });
 
@@ -793,6 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('input', () => {
       document.getElementById(errId).style.display = 'none';
       el.classList.remove('error');
+      formSubmitError.classList.add('hidden'); // Clear submission error on edit
     });
   });
 
@@ -802,6 +816,7 @@ document.addEventListener('DOMContentLoaded', () => {
     successPane.classList.replace('opacity-100', 'opacity-0');
     successPane.classList.add('pointer-events-none');
     formPane.classList.replace('opacity-0', 'opacity-100');
+    formSubmitError.classList.add('hidden');
     setTimeout(() => {
       form.reset();
       submitBtn.disabled = false;
