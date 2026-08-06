@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driflare Logo & Brand Assets — Official Media Rights</title>
+    
+    <!-- Meta Tags for Google & Social Crawlers -->
+    <meta name="description" content="Official logo assets and usage guidelines for Driflare. Download primary and dark brand marks with full legal usage permissions.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Driflare Official Brand Assets">
+    <meta property="og:description" content="Official logo assets and legal brand guidelines for Driflare.">
+    <meta property="og:image" content="https://driflare.com/driflare_logo.png">
+    <meta property="og:type" content="website">
+
+    <!-- Schema.org Organization & ImageObject Structured Data for Google Indexing -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://driflare.com/#organization",
+          "name": "Driflare",
+          "url": "https://driflare.com",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://driflare.com/png.html#primaryLogo",
+            "url": "https://driflare.com/driflare_logo.png",
+            "contentUrl": "https://driflare.com/driflare_logo.png",
+            "caption": "Driflare Primary Logo (White Dominant)"
+          },
+          "image": [
+            "https://driflare.com/driflare_logo.png",
+            "https://driflare.com/black_drif.png"
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://driflare.com/png.html",
+          "url": "https://driflare.com/png.html",
+          "name": "Driflare Brand Assets & Logo Media Kit",
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://driflare.com/#website",
+            "url": "https://driflare.com",
+            "name": "Driflare"
+          },
+          "primaryImageOfPage": {
+            "@id": "https://driflare.com/png.html#primaryLogo"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        .dark {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-muted: rgba(255, 255, 255, 0.35);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.025);
+            --nav-bg: rgba(0, 0, 0, 0.6);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .glass-nav {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            background: var(--nav-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 9999px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .glass-nav {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(120, 120, 120, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+        }
+
+        .dark .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.03);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(120,120,120,0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(120,120,120,0.4);
+        }
+    </style>
+</head>
+<body class="selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-black flex flex-col justify-between">
+
+    <!-- Navbar Header -->
+    <header class="fixed top-4 left-0 w-full z-50 px-4 sm:px-8 transition-all duration-500">
+        <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-3.5 glass-nav">
+            <a href="https://driflare.com" class="font-display text-lg font-bold tracking-tight flex items-center gap-2.5 group">
+                <div class="w-7 h-7 rounded-lg border border-slate-300 dark:border-white/30 bg-slate-100 dark:bg-white/5 flex items-center justify-center relative overflow-hidden group-hover:border-slate-800 dark:group-hover:border-white transition-colors duration-300">
+                    <div class="w-3.5 h-3.5 bg-slate-900 dark:bg-white rounded-sm transform rotate-45 group-hover:scale-110 transition-transform"></div>
+                </div>
+                Driflare
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="https://driflare.com/#home" class="nav-link text-sm font-medium text-slate-500 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Home</a>
+                <a href="https://driflare.com/#about" class="nav-link text-sm font-medium text-slate-500 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">About</a>
+                <a href="https://driflare.com/#founders" class="nav-link text-sm font-medium text-slate-500 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Founders</a>
+                <a href="https://driflare.com/#timeline" class="nav-link text-sm font-medium text-slate-500 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Timeline</a>
+                <a href="https://driflare.com/#contact" class="nav-link text-sm font-medium text-slate-500 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a>
+            </nav>
+
+            <div class="hidden md:flex items-center gap-4">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggle" onclick="toggleTheme()" class="w-9 h-9 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors" title="Toggle theme">
+                    <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                    </svg>
+                </button>
+                <a href="https://driflare.com" class="px-5 py-2.5 rounded-xl text-xs font-medium bg-slate-900 text-white dark:bg-white dark:text-black hover:opacity-90 transition-all duration-300 shadow-sm flex items-center gap-2">
+                    &larr; Go Back Home
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="flex items-center gap-2 md:hidden">
+                <button onclick="toggleTheme()" class="w-8 h-8 rounded-lg border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-700 dark:text-white">
+                    <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+                <a href="https://driflare.com" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-white dark:bg-white dark:text-black">
+                    Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="pt-36 pb-24 px-6 max-w-6xl mx-auto w-full">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs uppercase font-mono text-slate-500 dark:text-white/40 tracking-widest mb-4 block">Official Brand Assets</span>
+            <h1 class="font-display text-4xl sm:text-6xl font-bold tracking-tight mb-6 apple-gradient-text">Driflare Logos & Identity</h1>
+            <p class="text-slate-600 dark:text-white/60 text-base sm:text-lg">Download verified high-resolution brand assets for Driflare media coverage, integrations, and official presentations.</p>
+        </div>
+
+        <!-- Logo Gallery Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
+            <!-- White Dominant Logo Variant -->
+            <div class="glass-card rounded-3xl p-8 sm:p-10 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-xs uppercase font-mono text-slate-500 dark:text-white/40 tracking-wider">Light Theme / White Dominant</span>
+                        <span class="px-3 py-1 rounded-full text-[10px] font-mono border border-slate-300 dark:border-white/20 text-slate-700 dark:text-white/80">Primary Mark</span>
+                    </div>
+                    
+                    <div class="w-full h-64 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center p-6 mb-8 relative overflow-hidden group">
+                        <img 
+                            src="driflare_logo.png" 
+                            alt="Driflare Primary Logo (White Dominant)" 
+                            title="Driflare Primary Logo"
+                            class="max-h-48 max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                            itemprop="logo"
+                        >
+                    </div>
+
+                    <h3 class="font-display text-2xl font-bold mb-2">driflare_logo.png</h3>
+                    <p class="text-slate-600 dark:text-white/60 text-sm leading-relaxed mb-6">Designed for light backgrounds, high contrast application, and standard document headers.</p>
+                </div>
+
+                <a 
+                    href="driflare_logo.png" 
+                    download="driflare_logo.png" 
+                    class="w-full py-3.5 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-black text-sm font-medium hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2"
+                >
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    Download Primary PNG
+                </a>
+            </div>
+
+            <!-- Black Dominant Logo Variant -->
+            <div class="glass-card rounded-3xl p-8 sm:p-10 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-xs uppercase font-mono text-slate-500 dark:text-white/40 tracking-wider">Dark Theme / Black Dominant</span>
+                        <span class="px-3 py-1 rounded-full text-[10px] font-mono border border-slate-300 dark:border-white/20 text-slate-700 dark:text-white/80">Monochrome Dark</span>
+                    </div>
+                    
+                    <div class="w-full h-64 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center p-6 mb-8 relative overflow-hidden group">
+                        <img 
+                            src="black_drif.png" 
+                            alt="Driflare Black Dominant Logo" 
+                            title="Driflare Black Dominant Logo"
+                            class="max-h-48 max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                        >
+                    </div>
+
+                    <h3 class="font-display text-2xl font-bold mb-2">black_drif.png</h3>
+                    <p class="text-slate-600 dark:text-white/60 text-sm leading-relaxed mb-6">Designed for dark mode interfaces, black backdrops, and inverted visual presentation.</p>
+                </div>
+
+                <a 
+                    href="black_drif.png" 
+                    download="black_drif.png" 
+                    class="w-full py-3.5 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-black text-sm font-medium hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2"
+                >
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    Download Dark PNG
+                </a>
+            </div>
+        </div>
+
+        <!-- Legal & Image Usage Rights Section -->
+        <div class="glass-card rounded-3xl p-8 sm:p-12 shadow-lg border border-slate-200 dark:border-white/10">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-black flex items-center justify-center font-bold text-lg font-display">§</div>
+                <div>
+                    <h2 class="font-display text-2xl font-bold">Trademark & Media Usage Rights</h2>
+                    <p class="text-xs text-slate-500 dark:text-white/40 uppercase font-mono tracking-wider">Legal Terms & Guidelines</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-slate-600 dark:text-white/70 leading-relaxed">
+                <div class="space-y-4">
+                    <h4 class="font-semibold text-slate-900 dark:text-white text-base">Permitted Usage</h4>
+                    <ul class="space-y-2.5 list-disc list-inside">
+                        <li>Editorial coverage in newspapers, magazines, blogs, and news publications.</li>
+                        <li>Official partner integrations and authorized software press kits.</li>
+                        <li>Academic publications, tech reviews, and research references.</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="font-semibold text-slate-900 dark:text-white text-base">Restrictions & Ownership</h4>
+                    <ul class="space-y-2.5 list-disc list-inside">
+                        <li>Do not stretch, distort, alter colors, or modify original proportions.</li>
+                        <li>Do not use the Driflare trademark to imply unverified endorsement or sponsorship.</li>
+                        <li>All rights, title, and trademark ownership remain strictly with <strong>Driflare Inc.</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer copied matching index.html layout -->
+    <footer class="relative z-10 border-t border-slate-200 dark:border-white/10 py-20 px-6 bg-slate-50 dark:bg-black transition-colors duration-400">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-12 mb-16">
+            <div class="col-span-2">
+                <a href="https://driflare.com" class="font-display text-xl font-bold tracking-tight flex items-center gap-2.5 mb-5">
+                    <div class="w-8 h-8 rounded-lg border border-slate-300 dark:border-white/30 bg-slate-100 dark:bg-white/5 flex items-center justify-center relative overflow-hidden">
+                        <div class="w-3.5 h-3.5 bg-slate-900 dark:bg-white rounded-sm transform rotate-45"></div>
+                    </div>
+                    Driflare
+                </a>
+                <p class="text-slate-600 dark:text-white/50 text-sm max-w-sm mb-6 leading-relaxed">
+                    Navigate the future with intelligent, borderless connectivity and advanced AI solutions for Africa.
+                </p>
+                <!-- Social Media Icons -->
+                <div class="flex items-center gap-3 mb-6">
+                    <a href="https://twitter.com/Driflare" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-700 dark:text-white hover:scale-105 transition-transform" title="Twitter / X">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://linkedin.com/company/driflare" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-700 dark:text-white hover:scale-105 transition-transform" title="LinkedIn">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://github.com/driflare" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-700 dark:text-white hover:scale-105 transition-transform" title="GitHub">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="https://discord.com/driflare" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-700 dark:text-white hover:scale-105 transition-transform" title="Discord">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.011c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                    </a>
+                </div>
+                <p class="text-xs text-slate-400 dark:text-white/30">© 2026 Driflare Inc. All rights reserved.</p>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase font-mono text-slate-400 dark:text-white/40 mb-4 tracking-wider">Products</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="https://driflare.com/#about" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">PZB</a></li>
+                    <li><a href="https://driflare.com/#about" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Yo Company</a></li>
+                    <li><a href="https://driflare.com/#about" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Edge Mesh</a></li>
+                    <li><a href="https://driflare.com/#about" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Zero-Trust</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase font-mono text-slate-400 dark:text-white/40 mb-4 tracking-wider">Company</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="https://driflare.com/#about" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">About</a></li>
+                    <li><a href="https://driflare.com/#founders" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Founders</a></li>
+                    <li><a href="https://driflare.com/#timeline" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Timeline</a></li>
+                    <li><a href="https://driflare.com/#contact" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase font-mono text-slate-400 dark:text-white/40 mb-4 tracking-wider">Legal</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Privacy</a></li>
+                    <li><a href="#" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Terms</a></li>
+                    <li><a href="#" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Security</a></li>
+                     <li><a href="/logo.html" class="text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white transition-colors">Logo</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+</body>
+</html>
