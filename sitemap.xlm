@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Main Home Landing Page -->
+  <url>
+    <loc>https://driflare.com/</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Logo Brand Page -->
+  <url>
+    <loc>https://driflare.com/logo-site.html</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://driflare.com/driflare_logo.png</image:loc>
+      <image:title>Driflare Primary Logo (White Dominant)</image:title>
+      <image:caption>Official Driflare Primary Brand Mark</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://driflare.com/black_drif.png</image:loc>
+      <image:title>Driflare Dark Logo (Black Dominant)</image:title>
+      <image:caption>Official Driflare Dark Mode Brand Mark</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Media Kit Page -->
+  <url>
+    <loc>https://driflare.com/press.html</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

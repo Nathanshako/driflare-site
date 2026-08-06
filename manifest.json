@@ -1,0 +1,21 @@
+{
+  "short_name": "Driflare",
+  "name": "Driflare — Navigate the Future",
+  "icons": [
+    {
+      "src": "fav.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "fav.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#000000",
+  "theme_color": "#0f172a",
+  "display": "standalone",
+  "orientation": "portrait"
+}

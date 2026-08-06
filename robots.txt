@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Direct links to XML Sitemaps for Google Indexing
+Sitemap: https://driflare.com/sitemap.xml
